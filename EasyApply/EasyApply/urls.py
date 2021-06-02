@@ -16,6 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# from easy_apply_app.models import User as U, Fruit, Donut, Group
+# class UAdmin(admin.ModelAdmin):
+#     pass
+# admin.site.register(U, UAdmin)
+# class FruitAdmin(admin.ModelAdmin):
+#     pass
+# admin.site.register(Fruit, FruitAdmin)
+# class DonutAdmin(admin.ModelAdmin):
+#     pass
+# admin.site.register(Donut, DonutAdmin)
+# class GroupAdmin(admin.ModelAdmin):
+#     pass
+# admin.site.register(Group, GroupAdmin)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('easy_apply_app.urls'))

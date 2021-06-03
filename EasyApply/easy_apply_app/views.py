@@ -13,3 +13,9 @@ def register(request):
 def user(request, id):
     return render(request, 'user.html')
 
+def cv_test(request):
+    return render(request,'cv_builder.html')
+
+def CV_test(request):
+    return render(request,'create_CV.html')
+

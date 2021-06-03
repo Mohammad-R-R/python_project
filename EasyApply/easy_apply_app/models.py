@@ -47,3 +47,51 @@ class Experience(models.Model):
     cv = models.ForeignKey(CV, related_name="experiences", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+def get_all_users():
+    all_users = User.objects.all
+    return all_users
+
+def git_this_user_by_id(user_id):
+    this_user = User.objects.get(id = user_id)
+    return this_user
+
+def git_this_user_by_email(email):
+    this_user = User.objects.get(email = email)
+    return this_user
+
+def get_all_jobs():
+    all_jobs = Job.objects.all
+    return all_jobs
+
+def get_this_job_by_id(job_id):
+    this_job = Job.objects.get(id = job_id)
+    return this_job
+
+def get_this_job_by_specialist(specialist):
+    this_job = Job.objects.filter(specialist = specialist)
+    return this_job
+
+
+def get_all_cvs():
+    all_cvs = CV.objects.all
+    return all_cvs
+
+def get_user_cv(user_id):
+    this_user = git_this_user_by_id(user_id)
+    cv = this_user.cv
+    return cv
+
+def get_all_skills():
+    all_skills = Skill.objects.all
+    return all_skills
+
+def get_all_experiences():
+    all_experiences = Experience.objects.all
+    return all_experiences
+
+def apply_to_job(user_id, job_id):
+    this_user = git_this_user_by_id(user_id)
+    this_job = get_this_job_by_id(job_id)
+    apply = this_job.users.add(this_user)
+

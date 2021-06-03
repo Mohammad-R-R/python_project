@@ -1,5 +1,10 @@
 from django.db import models
 
+job_specialist = (("",""),('Engineering' , 'Engineering') , ('Doctor' , 'Doctor') , 
+('Pharmacy' , 'Pharmacy') , ('IT' , 'IT') , ('Science' , 'Science') , 
+('Math','Math') , ('Chemistry','Chemistry') , ('Biology','Biology'),
+('Phisycs','Phisycs') , ('Sport','Sport') , ('Finance','Finance') , ('Managment','Managment'))
+
 class User(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
@@ -13,9 +18,9 @@ class User(models.Model):
 class Job(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    specialist = models.CharField(max_length=255)
+    specialist = models.CharField(choices= job_specialist ,max_length=255 ,default="")
     deadline_date = models.DateField()
-    users = models.ManyToManyField(User , related_name="jobs")
+    users = models.ManyToManyField(User , related_name="jobs" , blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

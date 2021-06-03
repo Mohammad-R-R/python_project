@@ -19,3 +19,5 @@ def cv_test(request):
 def CV_test(request):
     return render(request,'create_CV.html')
 
+def showjob(request):
+    return render(request,'showjob.html')

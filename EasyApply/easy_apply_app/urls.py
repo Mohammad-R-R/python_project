@@ -8,5 +8,6 @@ urlpatterns = [
     path('user/<int:id>',views.user),
     path('test',views.cv_test),
     path('test2',views.CV_test),
+    path('showjob',views.showjob),
 
 ]

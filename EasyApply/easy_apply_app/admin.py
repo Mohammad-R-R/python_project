@@ -9,22 +9,23 @@ admin.site.site_header = "Tripple M group - Easy Apply"
 from . import models
 from .models import User, Job,CV,Education,Skill,Experience
 
+
 class JobAdmin(admin.ModelAdmin):
     fields = ('title', 'description', 'specialist', 'deadline_date','users',)
-    list_display = ('title', 'description', 'specialist', 'deadline_date' , 'click_me')
+    list_display = ('title', 'description', 'specialist', 'deadline_date' ,'click_me')
     list_filter = ('specialist', 'deadline_date')
-    options = {'job_specialist' :admin.options}
 
-    
     def click_me(self , obj):
         return format_html('<a> View </a>')
+        
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name' , 'email' , 'phone'  , 'married' , 'gender' , 'jobs' , 'cv')
+    fields = ['first_name', 'last_name' , 'email' , 'phone'  , 'married' , 'gender' ]    
+
 
 class CV_Admin(admin.ModelAdmin):
-    list_display = ('user', 'specialist' , 'nationality' , 'driving')
+    list_display = ('user', 'specialist' , 'nationality' , 'driving' ,)
     list_filter = ('specialist',)
-
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name' , 'email' , 'phone'  , 'status' , 'gender')
 
 class EduAdmin(admin.ModelAdmin):
     list_display = ('title' , 'description' , 'date' , 'cv')

@@ -5,27 +5,29 @@ job_specialist = (("",""),('Engineering' , 'Engineering') , ('Doctor' , 'Doctor'
 ('Math','Math') , ('Chemistry','Chemistry') , ('Biology','Biology'),
 ('Phisycs','Phisycs') , ('Sport','Sport') , ('Finance','Finance') , ('Managment','Managment'))
 
+sel_gender = (('Male','Male') , ('Female' , 'Female'))
+
 class User(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255 , unique=True)
     phone = models.IntegerField(unique=True)
-    status = models.BooleanField()
-    gender = models.CharField(max_length=20)
+    married = models.BooleanField()
+    gender = models.CharField(choices= sel_gender, max_length=20)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 class Job(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    specialist = models.CharField(choices= job_specialist ,max_length=255 ,default="")
+    specialist = models.CharField(choices= job_specialist ,max_length=255 ,default="" , blank=False)
     deadline_date = models.DateField()
     users = models.ManyToManyField(User , related_name="jobs" , blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 class CV(models.Model):
-    specialist = models.CharField(max_length=255)
+    specialist = models.CharField(choices= job_specialist ,max_length=255 ,default="" , blank=False)
     nationality = models.CharField(max_length=255)
     driving = models.BooleanField()
     user = models.OneToOneField(User , related_name="cv" , on_delete=models.CASCADE)

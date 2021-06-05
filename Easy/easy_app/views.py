@@ -1,9 +1,9 @@
 from django.http import request
 from django.shortcuts import redirect, render
 from . import models
-# from easy_app.models import *
 from django.contrib import messages
 import bcrypt
+from time import strftime
 
 
 # Create your views here.
@@ -37,44 +37,13 @@ def reg(request):
         password=pw_hash
         models.create_user(first_name,last_name,birthday,email,password,phone)
         this_user = models.get_this_user_by_email(email)
-        print("********************************")
-        print(user)
-        print(this_user)
-        print("********************************")
         request.session['id']=this_user[0].id
         request.session['f_name']=this_user[0].first_name
         request.session['l_name']=this_user[0].last_name
-        request.session['birthday']=this_user[0].birthday
+        date = this_user[0].birthday
+        request.session['birthday']= date.strftime('%Y-%m-%d')
         request.session['email']=this_user[0].email                        
         return redirect(f'/user/{request.session["id"]}')
-
-# def register(request):
-#     errors = User.objects.basic_validator(request.POST)
-#     if len(errors) > 0:
-        
-#         for key, value in errors.items():
-#             messages.error(request, value)
-        
-#         return redirect('/')
-#     else:
-        
-#         password = request.POST['password']
-#         pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()  # create the hash    
-#         print(pw_hash)
-        
-#         User.objects.create(first_name= request.POST['first_name'],last_name = request.POST['last_name'],email=request.POST['email'],password=pw_hash)
-        
-#         Use
-#         users=User.objects.filter(email=request.POST['email'])
-#         logged_user=users[0]
-#         request.session['user']={
-#             'id':logged_user.id,
-#             'firstname':logged_user.first_name,
-#             'last_name':logged_user.last_name,
-#             'email':logged_user.email
-#                         }
-#         # return redirect('/welcome')
-#         return render(request,'registration.html')
 
 def log(request):
     email = request.POST['email']

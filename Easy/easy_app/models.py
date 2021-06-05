@@ -91,7 +91,7 @@ def create_user(first_name,last_name,birthday,email,password,phone):
     User.objects.create(first_name=first_name,last_name=last_name,birthday=birthday,email=email,password=password , phone=phone)
 
 def get_all_users():
-    all_users = User.objects.all
+    all_users = User.objects.all()
     return all_users
 
 def get_this_user_by_id(user_id):
@@ -103,7 +103,7 @@ def get_this_user_by_email(email):
     return this_user
 
 def get_all_jobs():
-    all_jobs = Job.objects.all
+    all_jobs = Job.objects.all()
     return all_jobs
 
 def get_this_job_by_id(job_id):
@@ -115,7 +115,7 @@ def get_this_job_by_specialist(specialist):
     return this_job
 
 def get_all_cvs():
-    all_cvs = CV.objects.all
+    all_cvs = CV.objects.all()
     return all_cvs
 
 def get_user_cv(user_id):
@@ -124,11 +124,11 @@ def get_user_cv(user_id):
     return cv
 
 def get_all_skills():
-    all_skills = Skill.objects.all
+    all_skills = Skill.objects.all()
     return all_skills
 
 def get_all_experiences():
-    all_experiences = Experience.objects.all
+    all_experiences = Experience.objects.all()
     return all_experiences
 
 def apply_to_job(user_id, job_id):

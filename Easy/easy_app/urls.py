@@ -9,6 +9,7 @@ urlpatterns = [
     path('log',views.log),
     path('user/<int:id>',views.user),
     path('test',views.cv_test),
+    path('to_be_created/<int:id>/',views.create_request),
     path('test2',views.CV_test),
     path('showjob',views.showjob),
     path('logout/',views.logout)

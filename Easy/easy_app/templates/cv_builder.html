@@ -179,23 +179,23 @@ body {
     <div class="container">
       <div class="header">
         <div class="full-name">
-          <span class="first-name">John</span> 
-          <span class="last-name">Doe</span>
+          <span class="first-name">{{request.session.f_name}}</span> 
+          <span class="last-name">{{request.session.l_name}}</span>
         </div>
         <div class="contact-info">
           <span class="email">Email: </span>
-          <span class="email-val">john.doe@gmail.com</span>
+          <span class="email-val" >{{request.session.email}}</span>
           <span class="separator"></span>
           <span class="phone">Phone: </span>
-          <span class="phone-val">111-222-3333</span>
+          <span class="phone-val">{{request.session.phone}}</span>
         </div>
         
-        <div class="about">
+        <!-- <div class="about">
           <span class="position">Front-End Developer </span>
           <span class="desc">
             I am a front-end developer with more than 3 years of experience writing html, css, and js. I'm motivated, result-focused and seeking a successful team-oriented company with opportunity to grow. 
           </span>
-        </div>
+        </div> -->
       </div>
        <div class="details">
         <div class="section">

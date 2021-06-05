@@ -59,9 +59,10 @@ def log(request):
         request.session['f_name'] = user[0].first_name
         request.session['l_name'] = user[0].last_name
         request.session['email'] = user[0].email
+        request.session['phone']=user[0].phone
         request.session['id'] = user[0].id
         print(request.session['f_name'])
-        return redirect(f'/user/{request.session["id"]}')
+        return redirect('/test2')
     else:
         return redirect('/login')
 
@@ -76,6 +77,19 @@ def cv_test(request):
 
 def CV_test(request):
     return render(request,'create_CV.html')
+
+    
+def create_request(request,id):
+    print("###########################################################################################################")
+    nationality = request.POST['nationality']
+    specialist = request.POST['specialist']
+    driving=request.POST['driving']
+    print("1111111111111111111111111111111111111111111111")
+    id = request.session['id']
+    print(id)
+    print("2222222222222222222222222222222222222222222222222")
+    models.add_to_builder(id,nationality,specialist,driving)
+    return redirect(f"/view/{request.session['id']}")
 
 def showjob(request):
     return render(request,'showjob.html')

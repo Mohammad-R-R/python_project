@@ -150,3 +150,11 @@ def login_user(email , password):
     errors['login'] = "Username or password is incorrect"
     return errors
 
+# def get_this_cv_by_id(user_id):
+#     this_cv = CV.objects.get(id = user_id)
+#     return this_cv
+
+def add_to_builder(id,nationality,specialist,driving):
+    user = get_this_user_by_id(id)
+    CV.objects.create(nationality=nationality,specialist=specialist,driving=driving, user=user)
+

@@ -173,26 +173,55 @@ body {
 
 
 </style>
+<script type="text/javascript">
+  function validate(frm)
+  {
+      var ele = frm.elements['feedurl[]'];
+      if (! ele.length)
+      {
+          alert(ele.value);
+      }
+      for(var i=0; i<ele.length; i++)
+      {
+          alert(ele[i].value);
+      }
+      return true;
+  }
+  function add_feed()
+  {
+      var div1 = document.createElement('div');
+      // Get template data
+      div1.innerHTML = document.getElementById('newlinktpl').innerHTML;
+      // append to our form, so that template data
+      //become part of form
+      document.getElementById('newlink').appendChild(div1);
+  }
+  </script>
 <body>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
-<form action="/create_CV" method="POST">
+
     <div class="container">
       <div class="header">
         <div class="full-name">
-           First name: <input type="text" name="first_name" placeholder="First Name" id=""><br>
-            last name:<input type="text" name="last_name" placeholder="Surename" id="">
+           First name: <input type="text" name="first_name" placeholder="First Name" value="{{request.session.f_name}}"><br>
+            last name:<input type="text" name="last_name" placeholder="Surename" id="" value="{{request.session.l_name}}">
           <!-- <span class="first-name" >John</span> 
           <span class="last-name">Doe</span> -->
         </div>
         <table>
         <div class="contact-info">
+         your id is : {{request.session.id}}
+         <form action="/to_be_created/{{request.session.id}}" method="POST">
+          {% csrf_token %}
             <tr>
-            <td><span class="email">Email: </span> <input type="email" name="email" id=""></td>
-            <td> <span class="phone">Phone: </span> <input type="number" name="phone"> </td>
+            <td><span class="email">Email: </span> <input type="email" name="email" id="" value="{{request.session.email}}"></td>
+            <td> <span class="phone">Phone: </span> <input type="number" name="phone" value="{{request.session.phone}}"> </td>
             <td><span class="phone">nationality: </span>
                 <input type="text" name="nationality"> </td>
             <td><span class="phone">specialist: </span>
                 <input type="text" name="specialist"></td>
+                <td><span class="phone">driving: </span>
+                  <input type="text" name="driving"></td>
           <!-- <span class="email-val">john.doe@gmail.com</span>
           <span class="separator"></span> -->
 
@@ -201,17 +230,13 @@ body {
           
          
         </div>
+        <button type="submit">create</button>
+      </form>
     </tr>
     </table>
         
-        <div class="about">
-          <span class="position">Descrption </span>
-          <textarea name="desc" id="" cols="85" rows="10" ></textarea>
-          <!-- <span class="desc">
-            I am a front-end developer with more than 3 years of experience writing html, css, and js. I'm motivated, result-focused and seeking a successful team-oriented company with opportunity to grow. 
-          </span> -->
-        </div>
-      </div>
+       
+     
        <div class="details">
         <div class="section">
           <div class="section__title">Experience</div>
@@ -219,7 +244,35 @@ body {
             <div class="section__list-item">
                 
               <div class="left">
-                <div class="name"><input type="text" placeholder="What is Your First EXPERIENCE"></div>
+                <form method="post" action="new_ele2.php" onsubmit="return validate(this)">
+                  <table>
+                  <tr>
+                      <td valign=top> Enter your Exp here</td>
+                      <td valign=top>
+                          <div id="newlink">
+                              <div class="feed">
+                                 <input type="text" name="rr"  size="50">
+                              </div>
+                          </div>
+                      </td>
+                  </tr>
+                  </table>
+                      <p>
+                          <br>
+                          <input type="submit" name="submit1">
+                          <input type="reset" name="reset1">
+                      </p>
+                  <p id="addnew">
+                      <a href="javascript:add_feed()">Add New </a>
+                  </p>
+                  </form>
+                  <!-- Template. This whole data will be added directly to working form above -->
+                  <div id="newlinktpl" style="display:none">
+                      <div class="feed">
+                       <input type="text" name="feedurl[]" value=""  size="50">
+                      </div>
+                  </div>
+                <!-- <div class="name"><input type="text" placeholder="What is Your First EXPERIENCE"></div>
                 <div class="addr"><input type="text" placeholder="From Where"></div>
                 <div class="duration"><input type="text" placeholder="duration"></div>
               </div>
@@ -242,8 +295,8 @@ body {
                 <div class="duration"><input type="text" placeholder="duration"></div>
               </div>
             </div>
-    
-          </div>
+     -->
+          <!-- </div> --> 
         </div>
         <div class="section">
           <div class="section__title">Education</div>
@@ -305,7 +358,7 @@ body {
          </div>
       </div>
     </div>
-</form>
+
     
 </body>
 </html>

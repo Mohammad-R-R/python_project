@@ -41,56 +41,48 @@
     <a href="/"><img src="{% static 'img/logo.png' %}" alt="My logo" height="50px" style="border-radius:50%"></a>
     <a href="/logout/">Logout</a>
   </nav>
-    <!-- <ul>
-        <li><a href="/"><img border="0" alt="mylogo" src="{% static 'img/logo.png' %}" width="150" height="70">
-            </a></li>
-        <!-- <li><a href="#news">News</a></li>
-        <li><a href="#contact">Contact</a></li> -->
-        <!-- <li style="float:right"><a href="#" class="btn btn-lg btn-primary" style="float: right; height: 70px;"><span class="glyphicon glyphicon-log-out"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-          </svg></span> Signout</a></a></li>
-      </ul> --> 
-      <br>
+    <br>
     <form class="form-compact" action="">
         <div class="row paddingBottom20">
-            <div class="container col-4">
+            <div class="container">
                 <div class="row">
                     <h1 class="text-center col-12 mb-0">{{job.title}}</h1>
                     <sub class="text-right text-muted col-12"><a href="#" tabindex="-1"><i class="far fa-edit"></i></a></sub>
                 </div>
                 <div class="dropdown-divider mb-3"></div>
-                <div class="form-group row">
-                    <div class="form-floating">
-                        <h3 for="floatingTextarea2">Job Description:</h3>
-                        <p>{{job.description}}</p>
-                        
-                      </div>
-                </div> 
-                <div class="form-group row align-items-center">
-                    <label for="deadline"> Deadline:  </label>
-                    <p>{{job.deadline_date}}</p>
-                </div>
-                <div class="last">
-                    <br><br><br><br>
-      
-      <button type="button" class="btn btn-primary btn-lg">Apply for this job</button>
-      <a href="../"><button type="button" class="btn btn-primary btn-lg" style="float:right"> Back</button></a>
-      <br><br><br><hr style="color: white;">
-      
-
-
-                </div>
+                <table class="table table-hover table-light table-striped">
+                  <thead>
+                    <th>Job Description:</th>
+                    <td>{{job.description}}</td>
+                  </thead>
+                  <tbody>
+                    <th>Deadline:</th>
+                    <td>{{job.deadline_date}}</td>
+                  </tbody>
+                </table>
+                <table class="table">
+                  <tr>
+                    <td>
+                    {% if user in job.users.all %}
+                    <a href="/showjob/{{job.id}}/withdraw"><button type="button" class="btn btn-danger btn-lg">Withdraw application</button></a>
+                    {% else %}
+                      <a href="/showjob/{{job.id}}/apply_job"><button type="button" class="btn btn-primary btn-lg">Apply for this job</button></a>
+                    {% endif %}
+                    </td>
+                    <td>
+                      <a href="../"><button type="button" class="btn btn-primary btn-lg" style="float:right"> Back</button></a>
+                    </td>
+                  </tr>
+                </table>
+                {% if user in job.users.all %}
+                  <h3>You already applied for this job</h3>
+                {% endif %}
+              </div> 
             </div>
         </div>
-        
     </form>
-    
-    <div class="footer">
-      <footer class="footer">
-        <p>© EasyApply 2021</p>
-      </footer>
-      </div>
-    
-</body>
+    <div>
+      <h4 class="text-center footer">© EasyApply 2021</h4>
+    </div>
+  </body>
 </html>

@@ -106,21 +106,12 @@
                     </select>
                   </td>
                 </tr>
-                <!-- <tr>
-                  <th scope="row">Driving License: </th>
-                  <td colspan="2"> <input type="radio" name="driving" value="True"> Yes, I have</td>
-                  <td colspan="2"> <input type="radio" name="driving" value="False"> I wish , I have</td>
-                </tr>
-                <tr>
-                  <th scope="row">Martial Status: </th>
-                  <td colspan="2"> <input type="radio" name="married" value="Married">Married</td>
-                  <td colspan="2"> <input type="radio" name="married" value="Single">Thank God, No</td>
-                </tr> -->
               </tbody>
             </table>
             <button type="submit" class="btn btn-primary">Create CV</button>
             </form>
             {% else %}
+            <p><h1>{{request.session.f_name}} {{request.session.l_name}}</h1></p>
             <a href="/view"><button class="btn btn-lg btn-primary">Show CV</button></a>
             <a href="../"><button type="button" class="btn btn-primary btn-lg" style="float:right"> Back</button></a>
             {% endif %}
@@ -159,14 +150,27 @@
             <table class="table table-hover table-light" id="myTable">
               <tbody>
                 <tr>
-                  <th class="">Education</th>
+                  <th>Education</th>
+                </tr>
+                {%for education in edu.all %}
+                <tr>
+                  <td colspan="3" class="scroll">{{education.title}}</td>
+                  <td><a href="create_cv/delete/{{education.id}}"><button type="button" class="btn-danger btn btn-lg">Delete</button></a></td>
+                </tr>
+                {% endfor %}
+                <tr>
+                  <td><input type="text" placeholder="Add here" name="edu" required></td>
+                  <td><input type="date" name="edu_date" required></td>
+                </tr>
+                <tr>
+                  <td colspan="4"><textarea cols="50" rows="5" placeholder="description" name="edu_desc" required></textarea></td>
                 </tr>
               </tbody>
             </table>
-            <button type="button" onclick="myFunction()" class="btn btn-primary">+</button>
-            <button type="submit" class="btn btn-success">Save</button>
+            <button type="submit" onclick="saveData()" class="btn btn-success btn-lg">Save</button>
           </form>
-          <br><br>
+          <hr>
+          <br>
 
           <form action="add_exp" method="post">
             {% csrf_token %}
@@ -174,13 +178,24 @@
               <tbody>
                 <tr>
                   <th class="">Experience</th>
-                </tr>
-              </tbody>
-            </table>
-            <button type="button" onclick="myFunction1()" class="btn btn-primary">+</button>
-            <button type="submit" class="btn btn-success">Save</button>
-            <br><br>
+                  {%for experience in exp.all %}
+                  <tr>
+                    <td colspan="3" class="scroll">{{experience.title}}</td>
+                    <td><a href="create_cv/delete_exp/{{experience.id}}"><button type="button" class="btn-danger btn btn-lg">Delete</button></a></td>
+                  </tr>
+                  {% endfor %}
+                  <tr>
+                    <td><input type="text" placeholder="Add here" name="exp" required></td>
+                  </tr>
+                  <tr>
+                    <td colspan="4"><textarea cols="50" rows="5" placeholder="description" name="exp_desc" required></textarea></td>
+                  </tr>
+                </tbody>
+              </table>
+              <button type="submit" class="btn btn-success btn-lg">Save</button>
           </form>
+          <hr>
+          <br>
 
           <form action="add_skill" method="post">
             {% csrf_token %}
@@ -189,50 +204,26 @@
                 <tr>
                   <th class="">Skills</th>
                 </tr>
+                {%for skill in skills.all %}
+                <tr>
+                  <td colspan="3" class="scroll">{{skill.skill}}</td>
+                  <td><a href="create_cv/delete_skill/{{skill.id}}"><button type="button" class="btn-danger btn btn-lg">Delete</button></a></td>
+                </tr>
+                {% endfor %}
+                <tr>
+                  <td><input type="text" placeholder="Add here" name="skill" required></td>
+                </tr>
               </tbody>
             </table>
-            <button type="button" onclick="myFunction2()" class="btn btn-primary">+</button>
-            <button type="submit" class="btn btn-success">Save</button>
+            <button type="submit" class="btn btn-success btn-lg">Save</button>
           </form>
       </div>
     </div>
-
     <script>
-      count = 0
-          $('#add+').click(function(){
-            
-            var x = $(this).attr('name')
-            $(this).attr('name' , $(this).attr('education{count}'));
-            });
 
-      
-      function myFunction() {
-        count += 1
-        $(this).attr('name' , $(this).attr(count));
-        console.log(count)
-        var table = document.getElementById("myTable");
-        var row = table.insertRow(1);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        cell1.innerHTML = '<input type="text" name="education'+count+'" id="add+" placeholder="Add Education">';
-      }
-      function myFunction1() {
-        count += 1
-        var table = document.getElementById("myTable1");
-        var row = table.insertRow(1);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        cell1.innerHTML = '<input type="text" name="experience'+count+'" placeholder="Add Experience">';
-      }
-      function myFunction2() {
-        count +=1
-        var table = document.getElementById("myTable2");
-        var row = table.insertRow(1);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        cell1.innerHTML = '<input type="text" name="skill'+count+'" placeholder="Add Skill">';
-      }
-      </script>
-
+    </script>
+    <div>
+      <h4 class="text-center footer">© EasyApply 2021</h4>
+    </div>
   </body>
 </html>

@@ -9,5 +9,27 @@
 
 .edit{
     font-size: large;
-    margin: 10px ;
+    margin: 10px 0px 10px 0px ;
+    border-radius:5px ;
+}
+
+td{
+    max-width: 60%;
+}
+
+#search{
+    border: none;
+    width: 60%;
+    margin-right: 2%;
+}
+
+#btn-search{
+    width: 30%;
+}
+
+.footer{
+    color: white;
+    padding: 15px;
+    margin-top: 15px;
+    background-color: #212529;
 }

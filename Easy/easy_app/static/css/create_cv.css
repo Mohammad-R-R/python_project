@@ -44,3 +44,10 @@ label {
 input:checked + label {
   background: #79A9CE;
 }
+
+.footer{
+  color: white;
+  padding: 15px;
+  margin-top: 15px;
+  background-color: #212529;
+}

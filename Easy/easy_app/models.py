@@ -43,7 +43,7 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects=BlogManager()
-
+    
 class Job(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -132,10 +132,11 @@ def get_all_experiences():
     all_experiences = Experience.objects.all()
     return all_experiences
 
-def apply_to_job(user_id, job_id):
-    this_user = get_this_user_by_id(user_id)
-    this_job = get_this_job_by_id(job_id)
-    apply = this_job.users.add(this_user)
+def apply_to_job(job, user):
+    apply = job.users.add(user)
+
+def withdraw(job, user):
+    apply = job.users.remove(user)
 
 
 
@@ -161,3 +162,44 @@ def add_to_builder(id,nationality,specialist,driving):
     print(driving)
     CV.objects.create(nationality=nationality,specialist=specialist, user=user)
 
+def add_edu(cv,edu ,desc , date):
+    Education.objects.create(title = edu , description = desc, date = date , cv = cv)
+
+
+
+
+def get_user_edu(user_id):
+    user = get_this_user_by_id(user_id)
+    cv = user.cv
+    edu = Education.objects.filter(cv = cv)
+    return edu
+
+def get_this_edu(edu_id):
+    edu = Education.objects.get(id = edu_id)
+    return edu
+
+def add_exp(cv, exp ,desc):
+    Experience.objects.create(title = exp , description = desc , cv = cv)
+
+def get_user_exp(user_id):
+    user = get_this_user_by_id(user_id)
+    cv = user.cv
+    exp = Experience.objects.filter(cv = cv)
+    return exp
+
+def get_this_exp(exp_id):
+    exp = Experience.objects.get(id = exp_id)
+    return exp
+
+def add_skill(cv, skill):
+    Skill.objects.create(skill = skill , cv = cv)
+
+def get_user_skill(user_id):
+    user = get_this_user_by_id(user_id)
+    cv = user.cv
+    skill = Skill.objects.filter(cv = cv)
+    return skill
+
+def get_this_skill(skill_id):
+    skill = Skill.objects.get(id = skill_id)
+    return skill

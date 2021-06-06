@@ -42,10 +42,9 @@
     <table class="table table-hover table-light table-striped">
       <thead>
         <tr>
-          <th scope="col">First Name:</th>
-          <th>{{request.session.f_name}}</th>
-          <th scope="col">Last Name:</th>
-          <th>{{request.session.l_name}}</th>
+          <th scope="col"><h1>Name:</h1></th>
+          <th><h1>{{request.session.f_name}} {{request.session.l_name}}</h1></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -85,13 +84,47 @@
           <td></td>
           <td></td>
         </tr>
+        <tr>
+          <th scope="row"><h2>Educations:</h2> </th>
+        </tr>
+        {%for education in edu.all %}
+        <tr>
+          <td colspan="4" class="scroll">{{education.edu_date}}</td>
+        </tr>
+        <tr>
+          <td colspan="4" class="scroll">{{education.title}}</td>
+        </tr>
+        <tr>
+          <td colspan="4" class="scroll">{{education.description}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <th scope="row"><h2>Experiences:</h2> </th>
+        </tr>
+        {%for experience in exp.all %}
+        <tr>
+          <td colspan="4" class="scroll">{{experience.title}}</td>
+        </tr>
+        <tr>
+          <td colspan="4" class="scroll">{{experience.description}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <th scope="row"><h2>Skills:</h2> </th>
+        </tr>
+        {%for skill in skills.all %}
+        <tr>
+          <td colspan="4" class="scroll">{{skill.skill}}</td>
+        </tr>
+        {% endfor %}
       </tbody>
     </table>
     <a href="create_cv"><button class="btn edit btn-primary btn-lg">Edit your CV</button></a>
     <a href="../"><button type="button" class="btn btn-primary btn-lg" style="float:right"> Back</button></a>
   </main>
-
-
   <hr>
+  <div>
+    <h4 class="text-center footer">© EasyApply 2021</h4>
+  </div>
 </body>
 </html>

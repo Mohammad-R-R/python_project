@@ -39,23 +39,21 @@
     </nav>
 
     <main class="container">
+        <br>
+        <h1> {{request.session.f_name}} {{request.session.l_name}} , Salaaaam...</h1>
         {% if this_user.first_name != user_cv.cv.user.first_name %}
                 <a href="create_cv"><button class="btn btn-primary btn-lg">Create Your CV</button></a>
         {% else %}
                 <a href="view"><button class="btn btn-primary btn-lg">View Your CV</button></a>
-                <a href="create_cv"><button class="btn edit btn-primary btn-lg">Edit your CV</button></a>
         {% endif %}
         <div class="d-flex flex-row">
             <table class="table table-hover table-light table-striped">
                 <tbody>
                 <tr>
-                    <th scope="col">First Name:</th>
-                    <th>{{request.session.f_name}}</th>
+                    <th scope="col">Name:</th>
+                    <th>{{request.session.f_name}} {{request.session.l_name}}</th>
                 </tr>
-                <tr>
-                    <th scope="col">Last Name:</th>
-                    <th>{{request.session.l_name}}</th>
-                </tr>
+
                 <tr>
                     <th scope="row">Email:</th>
                     <td>{{request.session.email}}</td>
@@ -79,10 +77,20 @@
             </tbody>
             </table>
 
-            <table class="table table-hover table-dark table-striped">
+
+            <table class="table table-hover table-dark table-striped table-responsive">
                 <thead>
                     <tr>
-                        <td><h2>Available Jobs</h2></td>
+                        <td colspan="2">
+                            <form class="d-flex container" action="" method="post">
+                                {% csrf_token %}
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-primary" type="submit">Search</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><h2>Available Jobs</h2></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -96,14 +104,28 @@
             </table>
         </div>
         <div>
+            {% if this_user.first_name != user_cv.cv.user.first_name %}
+            <p></p>
+            {% else %}
+            <a href="create_cv"><button class="btn btn-primary edit">Edit your CV</button></a>
+            {% endif %}
             <hr>
-            <h2>Applied to:</h2>
-            {% for job in this_user.jobs.all %}
-                <tr>
-                    <td>{{job.title}}</td>
-                </tr>
-            {% endfor %}
+            <table  class="table table-hover table-dark table-striped">
+                <thead>
+                    <th><h2>Applied to:</h2></th>
+                </thead>
+                <tbody>
+                {% for job in this_user.jobs.all %}
+                    <tr>
+                        <td><a href="/showjob/{{job.id}}">{{job.title}}</a></td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
         </div>
     </main>
+    <div>
+        <h4 class="text-center footer">© EasyApply 2021</h4>
+    </div>
 </body>
 </html>

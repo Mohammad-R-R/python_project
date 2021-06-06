@@ -72,10 +72,8 @@ def user(request):
         'this_user': models.get_this_user_by_id(request.session['id']),
         'all_jobs': models.get_all_jobs()
         }
-        print("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK")
         for job in context['all_jobs']:
             print(job.users)
-        print("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM")
         return render(request, 'user.html' , context)
     else:
         return redirect("/")
@@ -84,13 +82,19 @@ def cv_view(request):
     context = {
         'user' : models.get_this_user_by_id(request.session['id']),
         'cv': models.get_user_cv(request.session['id']),
+        'edu' : models.get_user_edu(request.session['id']),
+        'exp' : models.get_user_exp(request.session['id']),
+        'skills' : models.get_user_skill(request.session['id']),
     }
     return render(request,'cv_view.html',context)
 
 def create_cv(request):
     context = {
         'user_cv': models.get_user_cv(request.session['id']),
-        'this_user': models.get_this_user_by_id(request.session['id'])
+        'this_user': models.get_this_user_by_id(request.session['id']),
+        'edu' : models.get_user_edu(request.session['id']),
+        'exp' : models.get_user_exp(request.session['id']),
+        'skills' : models.get_user_skill(request.session['id']),
     }
     
     return render(request,'create_CV.html',context)
@@ -105,16 +109,10 @@ def create_request(request,id):
 
 def showjob(request, job_id):
     context = {
-        'job': models.get_this_job_by_id(job_id)
+        'job': models.get_this_job_by_id(job_id),
+        'user': models.get_this_user_by_id(request.session['id'])
     }
     return render(request,'showjob.html', context)
-
-def add_edu(request):
-    edu = request.POST
-    print("*"*50)
-    print(edu)
-    print("*"*50)
-    return redirect('/create_cv')
 
 def driving(request):
     user = models.get_this_user_by_id(request.session['id'])
@@ -134,8 +132,62 @@ def gender(request):
     user.save()
     return redirect('/create_cv')
 
+def apply_job(request , job_id):
+    job = models.get_this_job_by_id(job_id)
+    user = models.get_this_user_by_id(request.session['id'])
+    models.apply_to_job(job,user)
+    return redirect(f'/showjob/{job_id}')
+
+def withdraw(request , job_id):
+    job = models.get_this_job_by_id(job_id)
+    user = models.get_this_user_by_id(request.session['id'])
+    models.withdraw(job,user)
+    return redirect(f'/showjob/{job_id}')
+
+
 def logout(request):
     request.session.clear()
     return redirect('/')
 
+def add_edu(request):
+    edu = request.POST['edu']
+    desc = request.POST['edu_desc']
+    date = request.POST['edu_date']
+    user = models.get_user_cv(request.session['id'])
+    models.add_edu(user.cv , edu , desc , date)
+    edu1 = models.get_user_edu(request.session['id'])
+    return redirect('/create_cv')
+
+def delete_education(request, edu_id):
+    user = models.get_user_cv(request.session['id'])
+    this_edu = models.get_this_edu(edu_id)
+    this_edu.delete()
+    return redirect('/create_cv')
+
+def add_exp(request):
+    exp = request.POST['exp']
+    desc = request.POST['exp_desc']
+    user = models.get_user_cv(request.session['id'])
+    models.add_exp(user.cv , exp , desc)
+    exp = models.get_user_edu(request.session['id'])
+    return redirect('/create_cv')
+
+def delete_experience(request, exp_id):
+    user = models.get_user_cv(request.session['id'])
+    this_exp = models.get_this_exp(exp_id)
+    this_exp.delete()
+    return redirect('/create_cv')
+
+def add_skill(request):
+    skill = request.POST['skill']
+    user = models.get_user_cv(request.session['id'])
+    models.add_skill(user.cv , skill )
+    exp = models.get_user_skill(request.session['id'])
+    return redirect('/create_cv')
+
+def delete_skill(request , skill_id):
+    user = models.get_user_cv(request.session['id'])
+    this_skill = models.get_this_skill(skill_id)
+    this_skill.delete()
+    return redirect('/create_cv')
 

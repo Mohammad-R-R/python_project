@@ -10,6 +10,21 @@
     <link rel="stylesheet" href="{%   static   'css/registration.css' %}">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js%22%3E"></script>
+<script>
+    var checkpass = function () {
+        if (document.getElementById('password').value ==
+            document.getElementById('confirm_pw').value) {
+            document.getElementById('message').style.color = 'green';
+            document.getElementById('message').innerHTML = 'password match';
+        } else {
+            document.getElementById('message').style.color = 'red';
+            document.getElementById('message').innerHTML = 'password not match';
+        }
+    }
+</script>
+
 </head>
 
 <body>
@@ -55,11 +70,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Password:</label><br>
-                                <input type="password" name="password" id="password" class="form-control" required>
+                                <input type="password" name="password" id="password" class="form-control" required onkeyup='checkpass();' >
                             </div>
                             <div class="form-group">
                                 <label for="confirm_pw" class="text-info">Confirm Password:</label><br>
-                                <input type="password" name="Confirm" id="confirm_pw" class="form-control" required>
+                                <input type="password" name="Confirm" id="confirm_pw" class="form-control" required  onkeyup='checkpass();'>
+                                <div id="message"></div>
                             </div>
                             <div class="form-group">
                                 
@@ -79,3 +95,7 @@
         </div>
     </div>
 </body>
+
+
+
+</html>

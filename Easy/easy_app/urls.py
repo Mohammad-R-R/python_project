@@ -17,4 +17,5 @@ urlpatterns = [
     path('create_cv/driving' , views.driving),
     path('create_cv/married' , views.married),
     path('create_cv/gender' , views.gender),
+    path('showjob/<int:job_id>' , views.showjob)
 ]

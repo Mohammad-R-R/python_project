@@ -88,17 +88,19 @@
                 <tbody>
                     {% for job in all_jobs %}
                     <tr>
-                        <td>{{job.title}}</td>
-                        <td>{{job.description}}</td>
+                        <td><a href="/showjob/{{job.id}}">{{job.title}}</a></td>
+                        <td><a href="/showjob/{{job.id}}">{{job.description}}</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
         <div>
+            <hr>
+            <h2>Applied to:</h2>
             {% for job in this_user.jobs.all %}
                 <tr>
-                    <td>{{job}}</td>
+                    <td>{{job.title}}</td>
                 </tr>
             {% endfor %}
         </div>

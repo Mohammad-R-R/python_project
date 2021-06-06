@@ -103,8 +103,11 @@ def create_request(request,id):
     models.add_to_builder(id,nationality,specialist,driving)
     return redirect("/create_cv")
 
-def showjob(request):
-    return render(request,'showjob.html')
+def showjob(request, job_id):
+    context = {
+        'job': models.get_this_job_by_id(job_id)
+    }
+    return render(request,'showjob.html', context)
 
 def add_edu(request):
     edu = request.POST

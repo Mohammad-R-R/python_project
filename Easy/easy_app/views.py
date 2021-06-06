@@ -88,6 +88,13 @@ def cv_view(request):
     }
     return render(request,'cv_view.html',context)
 
+def new_cv_view(request):
+    context = {
+        'user' : models.get_this_user_by_id(request.session['id']),
+        'cv': models.get_user_cv(request.session['id']),
+    }
+    return render(request,'create_CV.html',context)
+
 def create_cv(request):
     context = {
         'user_cv': models.get_user_cv(request.session['id']),
@@ -105,7 +112,7 @@ def create_request(request,id):
     # driving=request.POST['driving']
     id = request.session['id']
     models.add_to_builder(id,nationality,specialist,driving)
-    return redirect("/create_cv")
+    return redirect("/edit_cv")
 
 def showjob(request, job_id):
     context = {
@@ -156,13 +163,13 @@ def add_edu(request):
     user = models.get_user_cv(request.session['id'])
     models.add_edu(user.cv , edu , desc , date)
     edu1 = models.get_user_edu(request.session['id'])
-    return redirect('/create_cv')
+    return redirect('/edit_cv')
 
 def delete_education(request, edu_id):
     user = models.get_user_cv(request.session['id'])
     this_edu = models.get_this_edu(edu_id)
     this_edu.delete()
-    return redirect('/create_cv')
+    return redirect('/edit_cv')
 
 def add_exp(request):
     exp = request.POST['exp']
@@ -170,24 +177,24 @@ def add_exp(request):
     user = models.get_user_cv(request.session['id'])
     models.add_exp(user.cv , exp , desc)
     exp = models.get_user_edu(request.session['id'])
-    return redirect('/create_cv')
+    return redirect('/edit_cv')
 
 def delete_experience(request, exp_id):
     user = models.get_user_cv(request.session['id'])
     this_exp = models.get_this_exp(exp_id)
     this_exp.delete()
-    return redirect('/create_cv')
+    return redirect('/edit_cv')
 
 def add_skill(request):
     skill = request.POST['skill']
     user = models.get_user_cv(request.session['id'])
     models.add_skill(user.cv , skill )
     exp = models.get_user_skill(request.session['id'])
-    return redirect('/create_cv')
+    return redirect('/edit_cv')
 
 def delete_skill(request , skill_id):
     user = models.get_user_cv(request.session['id'])
     this_skill = models.get_this_skill(skill_id)
     this_skill.delete()
-    return redirect('/create_cv')
+    return redirect('/edit_cv')
 

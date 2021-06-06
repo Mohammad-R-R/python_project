@@ -65,7 +65,7 @@
     </nav>
         <div class="container">
         <div class="header">
-          {% if this_user.first_name != user_cv.cv.user.first_name %}
+          {% if user.first_name != cv.cv.user.first_name %}
             <form action="/to_be_created/{{request.session.id}}" method="POST">
           {% csrf_token %}
             <table class="table table-hover table-light">
@@ -114,7 +114,7 @@
             <p><h1>{{request.session.f_name}} {{request.session.l_name}}</h1></p>
             <a href="/view"><button class="btn btn-lg btn-primary">Show CV</button></a>
             <a href="../"><button type="button" class="btn btn-primary btn-lg" style="float:right"> Back</button></a>
-            {% endif %}
+            
           <hr>
           <table  class="table table-hover table-light">
             <tr>
@@ -219,10 +219,8 @@
           </form>
       </div>
     </div>
-    <script>
-
-    </script>
     <div>
+      {% endif %}
       <h4 class="text-center footer">© EasyApply 2021</h4>
     </div>
   </body>

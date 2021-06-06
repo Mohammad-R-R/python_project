@@ -1,0 +1,13 @@
+.btn-lg{
+    width: 50%;
+    padding: 25px;
+    margin: 30px 0px 30px 0px;
+    font-size: xx-large;
+    text-align: center;
+    border-radius:20px ;
+}
+
+.edit{
+    font-size: large;
+    margin: 10px ;
+}

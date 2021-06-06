@@ -56,7 +56,7 @@ class Job(models.Model):
 class CV(models.Model):
     specialist = models.CharField(choices= job_specialist ,max_length=255 ,default="" , blank=False)
     nationality = models.CharField(max_length=255)
-    driving = models.BooleanField()
+    driving = models.BooleanField(default=False)
     user = models.OneToOneField(User , related_name="cv" , on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -104,6 +104,7 @@ def get_this_user_by_email(email):
 
 def get_all_jobs():
     all_jobs = Job.objects.all()
+    print(all_jobs)
     return all_jobs
 
 def get_this_job_by_id(job_id):
@@ -120,7 +121,7 @@ def get_all_cvs():
 
 def get_user_cv(user_id):
     this_user = get_this_user_by_id(user_id)
-    cv = this_user.cv
+    cv = this_user
     return cv
 
 def get_all_skills():
@@ -156,5 +157,7 @@ def login_user(email , password):
 
 def add_to_builder(id,nationality,specialist,driving):
     user = get_this_user_by_id(id)
-    CV.objects.create(nationality=nationality,specialist=specialist,driving=driving, user=user)
+    print(user.id)
+    print(driving)
+    CV.objects.create(nationality=nationality,specialist=specialist, user=user)
 

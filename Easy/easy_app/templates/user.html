@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="{% static 'css/fontAwesome.css' %}">
     <link rel="stylesheet" href="{% static 'css/templatemo-main.css' %}"> 
     <link rel="stylesheet" href="{% static 'css/hero-slider.css' %}">
-    <link rel="stylesheet" href="{% static 'css/owl-carousel.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/owl-carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/user.css' %}"> 
 
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/plugins.js' %}"></script>
@@ -38,8 +39,69 @@
     </nav>
 
     <main class="container">
-        <a href="create_cv"><button>Create your CV</button></a>
-        
+        {% if this_user.first_name != user_cv.cv.user.first_name %}
+                <a href="create_cv"><button class="btn btn-primary btn-lg">Create Your CV</button></a>
+        {% else %}
+                <a href="view"><button class="btn btn-primary btn-lg">View Your CV</button></a>
+                <a href="create_cv"><button class="btn edit btn-primary btn-lg">Edit your CV</button></a>
+        {% endif %}
+        <div class="d-flex flex-row">
+            <table class="table table-hover table-light table-striped">
+                <tbody>
+                <tr>
+                    <th scope="col">First Name:</th>
+                    <th>{{request.session.f_name}}</th>
+                </tr>
+                <tr>
+                    <th scope="col">Last Name:</th>
+                    <th>{{request.session.l_name}}</th>
+                </tr>
+                <tr>
+                    <th scope="row">Email:</th>
+                    <td>{{request.session.email}}</td>
+                </tr>
+                <tr>
+                    <th>Mobile:</th>
+                    <td>{{user_cv.phone}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Birthday:</th>
+                    <td>{{user_cv.birthday}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Gender:</th>
+                    <td>{{user_cv.gender}}</td>
+                </tr>
+                <tr>
+                <th scope="row">Martial Status: </th>
+                <td>{{user_cv.married}}</td>
+                </tr>
+            </tbody>
+            </table>
+
+            <table class="table table-hover table-dark table-striped">
+                <thead>
+                    <tr>
+                        <td><h2>Available Jobs</h2></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for job in all_jobs %}
+                    <tr>
+                        <td>{{job.title}}</td>
+                        <td>{{job.description}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div>
+            {% for job in this_user.jobs.all %}
+                <tr>
+                    <td>{{job}}</td>
+                </tr>
+            {% endfor %}
+        </div>
     </main>
 </body>
 </html>

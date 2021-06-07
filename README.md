@@ -1,4 +1,6 @@
 # python_project
+#Done by (Mo'ath Sweidan, Mahmoud Anbousi, Mohammed Raddad) - Axsos Academy, Ramallah - Palestine
+
 •	Introduction:
 The idea of EasyApply is to have your dream job as fast as you can, without going through a long process and filling up many boring forms.
 The user will register in EasyApply and when finishing the registration, he already passed half the way,  then will fill the rest of his resume with the education, experience adding with skills, and the rest on EasyApply.
